@@ -7,8 +7,8 @@ with sqlite3.connect("movies.db") as db:
         f"""
         SELECT dirname
         FROM director
-        WHERE country = '{user_input}'
-        """
+        WHERE country = :input
+        """, {'input': user_input}
     )
 
     results = cursor.fetchall()
