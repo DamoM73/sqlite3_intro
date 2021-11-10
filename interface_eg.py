@@ -70,3 +70,17 @@ class UI:
             print(result)
 
         input("\npress <enter> to continue\n")
+        
+    def get_value(self, prompt):
+        """
+        Displays prompt and returns user response
+        
+        prompt: str
+        return: str
+        """
+        
+        print(prompt)
+        return input("> ")
+        
+    
+    
