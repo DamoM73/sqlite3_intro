@@ -1,6 +1,16 @@
 # main.py
 from datastore import DataStore
+from interface import UI
 
 db = DataStore()
+ui = UI()
 
-print(db.get_dir_name_by_country("US"))
+running = True
+
+while running:
+    option = ui.main_menu()
+    
+    
+    if option == "X":
+        running = False
+    
