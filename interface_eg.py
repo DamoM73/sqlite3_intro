@@ -63,7 +63,7 @@ class UI:
         """
         Displays the results from a list one result per line
 
-        results: list
+        results: list[str]
         """
 
         for result in results:
@@ -83,4 +83,13 @@ class UI:
         return input("> ")
         
     
-    
+    def display_member_details(self,member):
+        """
+        Displays the member name, address and amount owing
+        
+        member: (str,str,float)
+        """
+        
+        print(f"{member[0]}\t{member[1]}\t{member[2]}")
+        
+        input("\npress <enter> to continue\n")

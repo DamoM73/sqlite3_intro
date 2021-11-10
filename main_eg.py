@@ -29,6 +29,10 @@ while running:
             elif query == "D":
                 country = ui.get_value("Which country?")
                 ui.display_list_results(db.get_dir_by_country(country))
+            # E. List member details
+            elif query == "E":
+                member = ui.get_value("Which member?")
+                ui.display_member_details(db.get_member_details(member))
                 
             # X. Return to main menu
             elif query == "X":
