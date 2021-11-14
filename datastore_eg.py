@@ -208,6 +208,7 @@ class DataStore:
 
         return clean_results
 
+
     def get_movie_details(self):
         """
         Returns all the movies details of name, length, year and director
@@ -227,6 +228,7 @@ class DataStore:
         results = self.cursor.fetchall()
 
         return results
+
 
     def get_loan_details(self):
         """

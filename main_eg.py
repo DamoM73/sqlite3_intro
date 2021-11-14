@@ -44,7 +44,10 @@ while running:
                 ui.display_list_results(db.get_director_movies(director))
             # H. List movie details
             elif query == "H":
-                ui.display_list_results(db.get_movie_details())
+                ui.display_movie_details(db.get_movie_details())
+            # I. List all movies on loan
+            elif query == "I":
+                ui.display_movies_on_loan(db.get_loan_details())
             # X. Return to main menu
             elif query == "X":
                 print("\n")

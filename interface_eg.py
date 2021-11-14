@@ -1,10 +1,13 @@
 # interface_eg.py
 
+from utils import convert_mins
+
 class UI:
 
     def __init__(self):
         pass
 
+    
     def main_menu(self):
         """
         Diplays the menu options for player to choose
@@ -71,6 +74,7 @@ class UI:
 
         input("\npress <enter> to continue\n")
         
+    
     def get_value(self, prompt):
         """
         Displays prompt and returns user response
@@ -92,4 +96,30 @@ class UI:
         
         print(f"{member[0]}\t{member[1]}\t{member[2]}")
         
+        input("\npress <enter> to continue\n")
+        
+    
+    def display_movie_details(self,movies):
+        """
+        Displays the details of the movies in the database
+        
+        movies: list
+        """
+
+        for movie in movies:
+            print(f"{movie[0]} ({movie[2]}) directed by {movie[3]}. Run time {convert_mins(movie[1])}")
+            
+        input("\npress <enter> to continue\n")
+        
+    
+    def display_movies_on_loan(self,movies):
+        """
+        Displays the movies that are one loan
+        
+        movies: list[(str,str,str)]
+        """
+        
+        for movie in movies:
+            print(f"{movie[0]} on loan to {movie[1]}. Due back on {movie[2]}")
+            
         input("\npress <enter> to continue\n")
