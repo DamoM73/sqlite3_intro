@@ -210,7 +210,7 @@ class DataStore:
 
     def get_movie_details(self):
         """
-        Returns a the movies details of name, length, year and director
+        Returns all the movies details of name, length, year and director
 
         return: list[(str,int,int,str)]
         """

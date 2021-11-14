@@ -7,6 +7,7 @@ ui = UI()
 
 running = True
 
+# ----- MAIN LOOP ----- #
 while running:
     option = ui.main_menu()
     
@@ -33,7 +34,17 @@ while running:
             elif query == "E":
                 member = ui.get_value("Which member?")
                 ui.display_member_details(db.get_member_details(member))
-                
+            # F. Show movies on hire to a member
+            elif query == "F":
+                member = ui.get_value("Which member?")
+                ui.display_list_results(db.get_member_movies(member))
+            # G. List movies by a director
+            elif query == "G":
+                director = ui.get_value("Which director?")
+                ui.display_list_results(db.get_director_movies(director))
+            # H. List movie details
+            elif query == "H":
+                ui.display_list_results(db.get_movie_details())
             # X. Return to main menu
             elif query == "X":
                 print("\n")
