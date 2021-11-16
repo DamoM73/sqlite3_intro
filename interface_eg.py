@@ -73,8 +73,8 @@ class UI:
         # display menu
         print("Update Menu")
         print("===========")
-        print("A. Add memebers")
-        #print("B. Add movies")
+        print("A. Add memeber")
+        print("B. Add movie")
         #print("C. Add directors")
         #print("D. Loan movie")
         #print("E. Return movie")
@@ -161,10 +161,39 @@ class UI:
         return: ("str","str")
         """
         
-        last_name = self.input_value("Enter  memeber's last name")
+        last_name = self.input_value("Enter memeber's last name")
         initial = self.input_value("Enter memeber's initial")
         address = self.input_value("Enter member's address")
         
         name = last_name + "," + initial
         
         return(name,address)
+    
+    def operation_results(self,result):
+        """
+        Displays the success of the operation
+        
+        results: (bool,str)
+        """
+        
+        if result[0] == True:
+            print(f"Success: {result[1]}")
+        else:
+            print(f"Error: {result[1]}")
+            
+    def input_movie_details(self):
+        """
+        User inputs movie's details
+        
+        return: (str,int,int,str)
+        """
+        title = self.input_value("Enter movie title")
+        length = int(self.input_value("Enter movie length"))
+        year = int(self.input_value("Enter year of release"))
+        first_name = self.input_value("Enter director's first name")
+        last_name = self.input_value("Enter director's last name")
+        
+        director = last_name + ", " + first_name
+        
+        return(title,length,year,director)
+        

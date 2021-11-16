@@ -284,3 +284,56 @@ class DataStore:
                 "owes": None
             }
         )
+
+        return (True, f"member '{name}' added")
+    
+    
+    def add_movie(self,movname,length,year,director):
+        """
+        Adds new movie to database
+        
+        movname: str
+        length: int
+        year: int
+        director: str
+        """
+        
+        # get director num
+        self.cursor.execute(
+            """
+            SELECT dirnumb
+            FROM director
+            WHERE dirname = :director
+            """,
+            {"director": director}
+        )
+        results = self.cursor.fetchone()
+        if results == None:
+            return(False, f"director '{director}' does not exist")
+        else:
+            dirnumb = results[0]
+            
+            # get movie number
+            self.cursor.execute(
+                """
+                SELECT MAX(movienumb)
+                FROM movie
+                """
+            )
+            movienumb = self.cursor.fetchone()[0]+1
+            
+            # write information to database
+            self.cursor.execute(
+                """
+                INSERT INTO movie
+                VALUES (:movienumb,:movname,:length,:year,:dirnumb)
+                """,
+                {
+                    "movienumb":movienumb,
+                    "movname": movname,
+                    "length": length,
+                    "year": year,
+                    "dirnumb": dirnumb
+                }
+            )
+            return(True,f"movie '{movname}' added")

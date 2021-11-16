@@ -52,16 +52,23 @@ while running:
             elif query == "X":
                 print("\n")
                 queries = False
-     # X. Quit program
+    # Update Menu
     elif option == "B":
         updates = True
         while updates:
             update = ui.update_menu()
+            # A. Add memeber
             if update == "A":
                 mem_name, mem_address = ui.input_member_details()
-                db.add_member(mem_name,mem_address)
+                ui.operation_results(db.add_member(mem_name,mem_address))
+            # B. Add movie
+            elif update == "B":
+                title, length, year, director = ui.input_movie_details()
+                ui.operation_results(db.add_movie(title,length,year,director))
+            # X. Return to main menu
             elif update == "X":
                 updates = False
-            
+
+    # X. Quit program        
     elif option == "X":
         running = False
