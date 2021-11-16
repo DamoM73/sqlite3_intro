@@ -1,5 +1,5 @@
-from datastore_eg import DataStore
+from datastore import DataStore
 
 db = DataStore()
 
-db.add_member("Murtagh,D","302 Manly Rd")
+print(db.add_new_member("Murtagh,C","302 Manly Rd"))
