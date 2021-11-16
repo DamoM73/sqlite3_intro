@@ -28,19 +28,19 @@ while running:
                 ui.display_list_results(db.get_movies())
             # D. List directors by country
             elif query == "D":
-                country = ui.get_value("Which country?")
+                country = ui.input_value("Which country?")
                 ui.display_list_results(db.get_dir_by_country(country))
             # E. List member details
             elif query == "E":
-                member = ui.get_value("Which member?")
+                member = ui.input_value("Which member?")
                 ui.display_member_details(db.get_member_details(member))
             # F. Show movies on hire to a member
             elif query == "F":
-                member = ui.get_value("Which member?")
+                member = ui.input_value("Which member?")
                 ui.display_list_results(db.get_member_movies(member))
             # G. List movies by a director
             elif query == "G":
-                director = ui.get_value("Which director?")
+                director = ui.input_value("Which director?")
                 ui.display_list_results(db.get_director_movies(director))
             # H. List movie details
             elif query == "H":
@@ -53,5 +53,15 @@ while running:
                 print("\n")
                 queries = False
      # X. Quit program
+    elif option == "B":
+        updates = True
+        while updates:
+            update = ui.update_menu()
+            if update == "A":
+                mem_name, mem_address = ui.input_member_details()
+                db.add_member(mem_name,mem_address)
+            elif update == "X":
+                updates = False
+            
     elif option == "X":
         running = False

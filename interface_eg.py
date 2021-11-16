@@ -19,13 +19,14 @@ class UI:
         print("Main Menu")
         print("==========")
         print("A. Queries")
+        print("B. Update database")
         print("X. Quit\n")
-        print("Please choose an option (A or X)")
+        print("Please choose an option (A, B or X)")
         
         # get option
         while True:
             response = input("> ").upper()
-            if response in ["A", "X"]:
+            if response in ["A", "B", "X"]:
                 return response
             else:
                 print("Incorrect choice\n")
@@ -62,6 +63,34 @@ class UI:
                 print("Incorrect choice\n")
 
 
+    def update_menu(self):
+        """
+        Displays the update options
+
+        return: str
+        """
+
+        # display menu
+        print("Update Menu")
+        print("===========")
+        print("A. Add memebers")
+        #print("B. Add movies")
+        #print("C. Add directors")
+        #print("D. Loan movie")
+        #print("E. Return movie")
+        #print("F. Pay fees")
+        print("X. Return to main menu\n")
+        print("Please choose an option (A to F or X)")
+
+        # get option
+        while True:
+            response = input("> ").upper()
+            if response in ["A", "B", "C", "D", "E", "F", "X"]:
+                return response
+            else:
+                print("Incorrect choice\n")
+
+
     def display_list_results(self, results):
         """
         Displays the results from a list one result per line
@@ -75,7 +104,7 @@ class UI:
         input("\npress <enter> to continue\n")
         
     
-    def get_value(self, prompt):
+    def input_value(self, prompt):
         """
         Displays prompt and returns user response
         
@@ -123,3 +152,19 @@ class UI:
             print(f"{movie[0]} on loan to {movie[1]}. Due back on {movie[2]}")
             
         input("\npress <enter> to continue\n")
+        
+    
+    def input_member_details(self):
+        """
+        User inputs memeber's details
+        
+        return: ("str","str")
+        """
+        
+        last_name = self.input_value("Enter  memeber's last name")
+        initial = self.input_value("Enter memeber's initial")
+        address = self.input_value("Enter member's address")
+        
+        name = last_name + "," + initial
+        
+        return(name,address)

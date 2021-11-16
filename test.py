@@ -1,3 +1,5 @@
-from utils import convert_mins
+from datastore_eg import DataStore
 
-print(convert_mins(59))
+db = DataStore()
+
+db.add_member("Murtagh,D","302 Manly Rd")

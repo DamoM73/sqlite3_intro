@@ -252,3 +252,35 @@ class DataStore:
         results = self.cursor.fetchall()
 
         return results
+    
+    
+    def add_member(self,name,address):
+        """
+        Adds a new member details
+        
+        name: str
+        address: str
+        """
+        
+        # execute query to get largest memberid
+        self.cursor.execute(
+            """
+            SELECT MAX(memberid)
+            FROM members
+            """
+        )
+        
+        mem_id = self.cursor.fetchone()[0] + 1
+        
+        self.cursor.execute(
+            """
+            INSERT INTO members
+            VALUES (:memid,:name,:address,:owes)
+            """,
+            {
+                "memid":mem_id,
+                "name":name,
+                "address":address,
+                "owes": None
+            }
+        )
