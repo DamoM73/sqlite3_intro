@@ -52,7 +52,8 @@ while running:
             elif query == "X":
                 print("\n")
                 queries = False
-    # Update Menu
+    
+    # B. Update
     elif option == "B":
         updates = True
         while updates:
@@ -65,6 +66,14 @@ while running:
             elif update == "B":
                 title, length, year, director = ui.input_movie_details()
                 ui.operation_results(db.add_movie(title,length,year,director))
+            # C. Add directors
+            elif update == "C":
+                name, country = ui.input_director_details()
+                ui.operation_results(db.add_director(name,country))
+            # D. Movie loan
+            elif update == "D":
+                movie,member = ui.input_loan_details()
+                ui.operation_results(db.add_loan(movie,member))
             # X. Return to main menu
             elif update == "X":
                 updates = False

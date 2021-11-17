@@ -75,8 +75,8 @@ class UI:
         print("===========")
         print("A. Add memeber")
         print("B. Add movie")
-        #print("C. Add directors")
-        #print("D. Loan movie")
+        print("C. Add directors")
+        print("D. Movie loan")
         #print("E. Return movie")
         #print("F. Pay fees")
         print("X. Return to main menu\n")
@@ -181,12 +181,16 @@ class UI:
         else:
             print(f"Error: {result[1]}")
             
+        input("\npress <enter> to continue\n")
+         
+            
     def input_movie_details(self):
         """
         User inputs movie's details
         
         return: (str,int,int,str)
         """
+        
         title = self.input_value("Enter movie title")
         length = int(self.input_value("Enter movie length"))
         year = int(self.input_value("Enter year of release"))
@@ -196,4 +200,36 @@ class UI:
         director = last_name + ", " + first_name
         
         return(title,length,year,director)
+        
+    
+    def input_director_details(self):
+        """
+        User inputs diredctor details
+        
+        return: (str,str)
+        """
+        
+        first_name = self.input_value("Enter director's first name")
+        last_name = self.input_value("Enter director's last name")
+        country = self.input_value("Enter director's country")
+        
+        name = last_name + ", " + first_name
+        
+        return(name, country)
+        
+        
+    def input_loan_details(self):
+        """
+        User inputs loan details
+        
+        return: (str,str)
+        """
+        
+        movie = self.input_value("Enter movie title")
+        last_name = self.input_value("Enter member's last name")
+        initial = self.input_value("Enter member's initial")
+        
+        member = last_name + "," + initial
+        
+        return (movie,member)
         

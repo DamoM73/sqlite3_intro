@@ -1,4 +1,5 @@
 # utils.py
+from datetime import date, timedelta
 
 def convert_mins(time_in_mins):
     """
@@ -15,3 +16,15 @@ def convert_mins(time_in_mins):
         mins_str = str(mins_int)
         
     return(f"{hours}:{mins_str}")
+
+def cal_due_date():
+    """
+    Calculates due date as 7 days from today
+    
+    return: str
+    """
+    
+    today = date.today()    # get today's date
+    due_date = today + timedelta(days=7)    # add 7 days
+    return due_date.strftime("%Y-%m-%d")
+    

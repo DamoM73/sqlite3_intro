@@ -1,5 +1,7 @@
 from datastore_eg import DataStore
+from utils import cal_due_date
 
 db = DataStore()
 
-print(db.add_movie("1","1","1","Cameron, James"))
+print(db.add_loan("Heat","Ris,E"))
+

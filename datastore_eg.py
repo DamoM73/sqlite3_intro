@@ -1,5 +1,6 @@
 # datastore.py
 import sqlite3
+from utils import cal_due_date
 
 class DataStore:
 
@@ -256,13 +257,15 @@ class DataStore:
     
     def add_member(self,name,address):
         """
-        Adds a new member details
+        Adds a new member details, returns success
         
         name: str
         address: str
+        
+        returm: (bool,str)
         """
         
-        # execute query to get largest memberid
+        # calculate next memeberid
         self.cursor.execute(
             """
             SELECT MAX(memberid)
@@ -290,12 +293,14 @@ class DataStore:
     
     def add_movie(self,movname,length,year,director):
         """
-        Adds new movie to database
+        Adds new movie to database, returns success
         
         movname: str
         length: int
         year: int
         director: str
+        
+        return: (bool,str)
         """
         
         # get director num
@@ -312,28 +317,122 @@ class DataStore:
             return(False, f"director '{director}' does not exist")
         else:
             dirnumb = results[0]
-            
-            # get movie number
-            self.cursor.execute(
-                """
-                SELECT MAX(movienumb)
-                FROM movie
-                """
-            )
-            movienumb = self.cursor.fetchone()[0]+1
-            
-            # write information to database
-            self.cursor.execute(
-                """
-                INSERT INTO movie
-                VALUES (:movienumb,:movname,:length,:year,:dirnumb)
-                """,
-                {
-                    "movienumb":movienumb,
-                    "movname": movname,
-                    "length": length,
-                    "year": year,
-                    "dirnumb": dirnumb
-                }
-            )
-            return(True,f"movie '{movname}' added")
+        
+        # calculate next movienumb
+        self.cursor.execute(
+            """
+            SELECT MAX(movienumb)
+            FROM movie
+            """
+        )
+        movienumb = self.cursor.fetchone()[0]+1
+        
+        # write information to database
+        self.cursor.execute(
+            """
+            INSERT INTO movie
+            VALUES (:movienumb,:movname,:length,:year,:dirnumb)
+            """,
+            {
+                "movienumb": movienumb,
+                "movname": movname,
+                "length": length,
+                "year": year,
+                "dirnumb": dirnumb
+            }
+        )
+        return(True,f"movie '{movname}' added")
+    
+    
+    def add_director(self,name,country):
+        """
+        Adds new director, returns success
+        
+        name: str
+        country: str
+        
+        return: (bool,str)
+        """
+        
+        # calcuate dirnumb
+        self.cursor.execute(
+            """
+            SELECT MAX(dirnumb)
+            FROM director
+            """
+        )
+        dirnumb = self.cursor.fetchone()[0] + 1
+    
+        # add director to datasource
+        self.cursor.execute(
+            """
+            INSERT INTO director
+            VALUES (:dirnumb,:dirname,:country)
+            """,
+            {
+                "dirnumb":dirnumb,
+                "dirname":name,
+                "country":country
+            }
+        )
+        
+        return (True,f"{name} added.")
+    
+    
+    def add_loan(self,movie,member):
+        """
+        Adds a new movie loan to the database, returns success
+        
+        movie: str
+        member: str
+        
+        return: (bool,str)
+        """
+        
+        # check movie name
+        self.cursor.execute(
+            """
+            SELECT movienumb
+            FROM movie
+            WHERE movname = :movie
+            """,
+            {"movie":movie}
+        )
+        result = self.cursor.fetchone()
+        if result == None:
+            return (False,f"'{movie}' is not in library")
+        else:
+            movienumb = result[0]
+        
+        # check member number
+        self.cursor.execute(
+            """
+            SELECT memberid
+            FROM members
+            WHERE memname = :member
+            """,
+            {"member": member}
+        )
+        result = self.cursor.fetchone()
+        if result == None:
+            return (False, f"'{member}' is not a member")
+        else:
+            memberid = result[0]
+        
+        # get date and prepare due date
+        duedate = cal_due_date()
+        
+        # add record to database
+        self.cursor.execute(
+            """
+            INSERT INTO movies_onhire
+            VALUES (:movienumb,:memberid,:duedate)
+            """,
+            {
+                "movienumb": movienumb,
+                "memberid": memberid,
+                "duedate": duedate
+            }
+        )
+        
+        return (True, f"'{movie}' loaned to {member}")
