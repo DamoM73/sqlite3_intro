@@ -77,8 +77,8 @@ class UI:
         print("B. Add movie")
         print("C. Add directors")
         print("D. Movie loan")
-        #print("E. Return movie")
-        #print("F. Pay fees")
+        print("E. Return movie")
+        print("F. Pay fees")
         print("X. Return to main menu\n")
         print("Please choose an option (A to F or X)")
 
@@ -149,7 +149,7 @@ class UI:
         """
         
         for movie in movies:
-            print(f"{movie[0]} on loan to {movie[1]}. Due back on {movie[2]}")
+            print(f"'{movie[0]}' on loan to {movie[1]}. Due back on {movie[2]}")
             
         input("\npress <enter> to continue\n")
         
@@ -168,6 +168,7 @@ class UI:
         name = last_name + "," + initial
         
         return(name,address)
+    
     
     def operation_results(self,result):
         """
@@ -232,4 +233,27 @@ class UI:
         member = last_name + "," + initial
         
         return (movie,member)
+
         
+    def input_return_details(self,movies):
+        """
+        User inputs the details for a loaned movie
+        
+        return: str
+        """
+        print("Movies currently on hire")
+        print("------------------------")
+        self.display_movies_on_loan(movies)
+        return self.input_value("Which movie is being returned?")
+
+    def input_member_name(self):
+        """
+        User provides name of member
+        
+        return: str
+        """
+        
+        last_name = self.input_value("Enter memeber's last name")
+        initial = self.input_value("Enter memeber's initial")
+        
+        return last_name + "," + initial

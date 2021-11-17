@@ -74,6 +74,14 @@ while running:
             elif update == "D":
                 movie,member = ui.input_loan_details()
                 ui.operation_results(db.add_loan(movie,member))
+            # E. Return movie
+            elif update == "E":
+                movie = ui.input_return_details(db.get_loan_details())
+                ui.operation_results(db.return_movie(movie))
+            # F. Pay fees
+            elif update == "F":
+                owing = db.get_amount_owing(ui.input_member_name())
+                
             # X. Return to main menu
             elif update == "X":
                 updates = False

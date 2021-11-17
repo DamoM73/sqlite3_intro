@@ -1,5 +1,6 @@
 # datastore.py
 import sqlite3
+from sqlite3.dbapi2 import Cursor
 from utils import cal_due_date
 
 class DataStore:
@@ -436,3 +437,78 @@ class DataStore:
         )
         
         return (True, f"'{movie}' loaned to {member}")
+    
+    
+    def return_movie(self,movie):
+        """
+        Removes movie from movies_on_loan table
+        
+        movie: str
+        
+        return: (bool, str)
+        """
+        
+        # get movie number
+        self.cursor.execute(
+            """
+            SELECT movienumber
+            FROM movies_onhire
+            WHERE movienumber IN (
+                SELECT movienumb
+                FROM movie
+                WHERE movname = :movie
+            )
+            """,
+            {"movie": movie}
+        )
+        result = self.cursor.fetchone()
+        
+        if result == None:
+            return(False, f"'{movie}' is not on loan")
+        else:
+            movienumb = result[0]
+            self.cursor.execute(
+                """
+                DELETE FROM movies_onhire
+                WHERE movienumber = :movienumb
+                """,
+                {"movienumb": movienumb}
+            )
+            return(True, f"'{movie}' returned")
+
+
+    def get_amount_owing(self,member):
+        """
+        Returns how much the member owes
+        
+        member: str
+        
+        returns: (bool, str)
+        """
+        
+        self.cursor.execute(
+            """
+            SELECT memberid
+            FROM members
+            WHERE memname = :member
+            """,
+            {"member":member}
+        )
+        
+        if self.cursor.fetchone == None:
+            return(False,f"'{member}' not in database")
+        else:
+            self.cursor.execute(
+                """
+                SELECT owes
+                FROM members
+                WHERE memname = :member
+                """,
+                {"member":member}
+            )
+            
+            result = self.cursor.fetchone()
+            if result == None:
+                return(True,0)
+            else:
+                return(True,result[0])
