@@ -73,7 +73,7 @@ class UI:
         # display menu
         print("Update Menu")
         print("===========")
-        print("A. Add memeber")
+        print("A. Add member")
         print("B. Add movie")
         print("C. Add directors")
         print("D. Movie loan")

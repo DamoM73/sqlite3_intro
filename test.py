@@ -3,5 +3,12 @@ from utils import cal_due_date
 
 db = DataStore()
 
-print(db.add_loan("Heat","Ris,E"))
+db.cursor.execute(
+    """
+    SELECT dirnumb
+    FROM director
+    WHERE dirname = "Harry Wright"
+    """
+)
 
+print(db.cursor.fetchone())
