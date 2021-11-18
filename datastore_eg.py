@@ -512,3 +512,25 @@ class DataStore:
                 return(True,0)
             else:
                 return(True,result[0])
+            
+    def update_amount_owing(self,member, new_debt):
+        """
+        Reduces member's debt by payment amount
+        
+        memebr: str
+        payment: float
+        """
+        
+        self.cursor.execute(
+            """
+            UPDATE members
+            SET owes = :new_debt
+            WHERE memname = :member
+            """,
+            {
+                "new_debt": new_debt,
+                "member": member
+            }
+        )
+        
+        return(True,f"{member} now owes ${new_debt}")

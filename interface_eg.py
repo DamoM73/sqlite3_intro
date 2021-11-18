@@ -257,3 +257,25 @@ class UI:
         initial = self.input_value("Enter memeber's initial")
         
         return last_name + "," + initial
+    
+    def input_payment(self,owing):
+        """
+        Informs user of amount owing and accepts payment amount
+        
+        owing: float
+        
+        returns: float
+        """
+        
+        while True:
+            print(f"${owing} is owed.")
+            payment = self.input_value("How much are you paying?")
+            try:
+                payment = float(payment)
+                if payment <= owing:
+                    return payment
+                else:
+                    print("Invalid amount")
+            except:
+                print("Invalid entry")
+            

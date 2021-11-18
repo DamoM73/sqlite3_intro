@@ -80,8 +80,14 @@ while running:
                 ui.operation_results(db.return_movie(movie))
             # F. Pay fees
             elif update == "F":
-                owing = db.get_amount_owing(ui.input_member_name())
-                
+                member = ui.input_member_name()
+                owing = db.get_amount_owing(member)
+                if not owing[0]:
+                    ui.operation_results(owing)
+                else:
+                    payment = ui.input_payment(owing[1])
+                    new_debt = owing[1] - payment
+                    ui.operation_results(db.update_amount_owing(member,new_debt))                
             # X. Return to main menu
             elif update == "X":
                 updates = False
